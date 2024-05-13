@@ -1,0 +1,56 @@
+version: '3'
+services:
+  express-app:
+    build:
+      args:
+      - NODE_ENV=development
+      context: express-app
+      target: development
+    environment:
+      - DATABASE_DB=surveyjs
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=/run/secrets/db-password
+      - DATABASE_HOST=postgres
+      - NODE_ENV=development
+    ports:
+      - 9080:3000
+    secrets:
+      - db-password
+    volumes:
+      - ./express-app:/code/express-app
+      - ./public:/code/public
+    networks:
+      - surveyjs-net
+    depends_on:
+      - postgres
+  postgres:
+        build:
+            context: postgres
+        secrets:
+            - db-password
+        environment:
+            POSTGRES_DB: "surveyjs"
+            POSTGRES_USER: "postgres"
+            # POSTGRES_PASSWORD: "123456"
+            POSTGRES_PASSWORD_FILE: "/run/secrets/db-password"
+            PGDATA: "/var/lib/postgresql/data/pgdata"
+        volumes:
+          - ./postgres/initdb:/docker-entrypoint-initdb.d
+          - ./postgres/data:/var/lib/postgresql/data
+        ports:
+            - 9432:5432
+        networks:
+            - surveyjs-net
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d public"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+        restart: unless-stopped
+networks:
+    surveyjs-net:
+        driver: bridge
+secrets:
+    db-password:
+        file: ./postgres/password.txt

@@ -1,0 +1,35 @@
+{
+  "name": "surveyjs-nodejs-postgres",
+  "version": "0.1.0",
+  "description": "Sample NodeJS backend for SurveyJS: Survey Library and Survey Creator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./express-app/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surveyjs/surveyjs-nodejs-postgres.git"
+  },
+  "keywords": [
+    "survey",
+    "surveyjs",
+    "service",
+    "nodejs",
+    "survey-creator",
+    "survey-analytics",
+    "survey-maker",
+    "form-builder"
+  ],
+  "author": "SurveyJS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/surveyjs/surveyjs-nodejs-postgres/issues"
+  },
+  "homepage": "https://github.com/surveyjs/surveyjs-nodejs-postgres#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "pg-promise": "^11.6.0"
+  }
+}
