@@ -5,7 +5,7 @@
 -- Dumped from database version 15.7 (Debian 15.7-1.pgdg120+1)
 -- Dumped by pg_dump version 15.4
 
--- Started on 2024-05-13 12:19:43
+-- Started on 2024-05-14 08:42:05
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,27 +19,39 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 5 (class 2615 OID 2200)
--- Name: public; Type: SCHEMA; Schema: -; Owner: pg_database_owner
+-- TOC entry 2 (class 3079 OID 16389)
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
 
-CREATE SCHEMA public;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
-
-ALTER SCHEMA public OWNER TO pg_database_owner;
 
 --
--- TOC entry 3360 (class 0 OID 0)
--- Dependencies: 5
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pg_database_owner
+-- TOC entry 3368 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
 --
 
-COMMENT ON SCHEMA public IS 'standard public schema';
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
 
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- TOC entry 216 (class 1259 OID 16409)
+-- Name: results; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.results (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    postid uuid NOT NULL,
+    json json
+);
+
+
+ALTER TABLE public.results OWNER TO postgres;
 
 --
 -- TOC entry 215 (class 1259 OID 16400)
@@ -56,7 +68,19 @@ CREATE TABLE public.surveys (
 ALTER TABLE public.surveys OWNER TO postgres;
 
 --
--- TOC entry 3354 (class 0 OID 16400)
+-- TOC entry 3362 (class 0 OID 16409)
+-- Dependencies: 216
+-- Data for Name: results; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.results VALUES ('a6d76dca-dd8e-4cc2-ae10-d4c546938437', '5d6326c6-f7d1-41a9-b0fc-8ed2dcc9aeb0', '{ "Quality": { "affordable": "5", "better then others": "5", "does what it claims": "5", "easy to use": "5" }, "satisfaction": 5, "recommend friends": 5, "suggestions": "I am happy!", "price to competitors": "Not sure", "price": "low", "pricelimit": { "mostamount": "100", "leastamount": "100" } }');
+INSERT INTO public.results VALUES ('f773b470-e91a-420e-bc0b-469891657f65', '5d6326c6-f7d1-41a9-b0fc-8ed2dcc9aeb0', '{ "Quality": { "affordable": "3", "does what it claims": "2", "better then others": "2", "easy to use": "3" }, "satisfaction": 3, "suggestions": "better support", "price to competitors": "Not sure", "price": "high", "pricelimit": { "mostamount": "60", "leastamount": "10" } }');
+INSERT INTO public.results VALUES ('837b1702-4ece-4917-bc9b-8c39bf3e039f', 'b5b65347-2b31-4693-b7bf-2908cc503be5', '{ "member_array_employer": [{}], "partner_array_employer": [{}], "maritalstatus_c": "Married", "member_receives_income_from_employment": "0", "partner_receives_income_from_employment": "0" }');
+INSERT INTO public.results VALUES ('0f57f11d-9b6d-40c0-a25f-9688792efb41', 'b5b65347-2b31-4693-b7bf-2908cc503be5', '{ "member_array_employer": [{}], "partner_array_employer": [{}], "maritalstatus_c": "Single", "member_receives_income_from_employment": "1", "member_type_of_employment": ["Self-employed"], "member_seasonal_intermittent_or_contract_work": "0" }');
+
+
+--
+-- TOC entry 3361 (class 0 OID 16400)
 -- Dependencies: 215
 -- Data for Name: surveys; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -673,7 +697,16 @@ INSERT INTO public.surveys VALUES ('b5b65347-2b31-4693-b7bf-2908cc503be5', 'Cust
 
 
 --
--- TOC entry 3211 (class 2606 OID 16406)
+-- TOC entry 3218 (class 2606 OID 16416)
+-- Name: results results_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT results_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3216 (class 2606 OID 16406)
 -- Name: surveys surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -681,7 +714,7 @@ ALTER TABLE ONLY public.surveys
     ADD CONSTRAINT surveys_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-05-13 12:19:43
+-- Completed on 2024-05-14 08:42:05
 
 --
 -- PostgreSQL database dump complete
