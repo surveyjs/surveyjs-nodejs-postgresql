@@ -2,7 +2,7 @@ var demoData = require("./demo-surveys");
 
 var currentId = demoData.surveys.length + 1;
 
-function InMemoryDBAdapter(session) {
+function InMemoryStorage(session) {
   function getTable(tableName) {
     var table = session[tableName];
     if (!table) {
@@ -13,13 +13,8 @@ function InMemoryDBAdapter(session) {
   }
 
   function getObjectsFromStorage(tableName, callback) {
-    // var objects = {};
     var table = getTable(tableName);
     callback(table);
-    // table.forEach(function(item) {
-    //   objects[item.name] = item;
-    // });
-    // callback(objects);
   }
 
   function findById(objects, id) {
@@ -123,4 +118,4 @@ function InMemoryDBAdapter(session) {
   };
 }
 
-module.exports = InMemoryDBAdapter;
+module.exports = InMemoryStorage;
