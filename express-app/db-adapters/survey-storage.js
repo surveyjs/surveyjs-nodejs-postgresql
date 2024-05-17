@@ -1,5 +1,6 @@
+let currentId = 1;
+
 function SurveyStorage(dbQueryAdapter) {
-    let currentId = 1;
   
     function addSurvey(name, callback) {
       var newObj = {
