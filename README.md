@@ -30,7 +30,7 @@ The client-side part is the `surveyjs-react-client` React application. The curre
 
 SurveyJS communicates with any database using JSON objects that contain either survey schemas or user responses. An SQL database should have two tables to store these objects: `surveys` and `results`. You can use the following SQL script to create them: [`surveyjs.sql`](postgres/initdb/surveyjs.sql). The diagram below shows the structure of these tables:
 
-![SurveyJS: The structure of database tables](https://github.com/surveyjs/surveyjs-nodejs-postgresql/assets/18551316/4d5b7ad4-cc4e-4572-9b01-49c17ff4d7ba)
+![SurveyJS: The structure of database tables](https://github.com/surveyjs/surveyjs-nodejs-postgresql/assets/18551316/176a0e1d-963c-4ec0-a11d-33631aa05770)
 
 To modify data in the `surveys` and `results` tables, you need to implement several JavaScript functions. According to the tasks they perform, these functions can be split into three modules:
 
