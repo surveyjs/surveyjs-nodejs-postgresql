@@ -45,6 +45,6 @@ JS functions that provide an API for working with survey schemas and user respon
 
 These modules interact with each other as shown on the following diagram:
 
-TODO: %IMAGE%
+![SurveyJS PostgreSQL Integration](https://github.com/surveyjs/surveyjs-nodejs-postgresql/assets/18551316/2676bb99-d5a1-40fb-b0bb-c780c382e177)
 
 If you want to integrate SurveyJS with other databases, you can modify or replace the query builder and query runner without changing the survey storage module. This approach is applied to MongoDB integration in the following repository: [`surveyjs-nodejs-mongodb`](https://github.com/surveyjs/surveyjs-nodejs-mongodb).
