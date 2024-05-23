@@ -1,8 +1,8 @@
-function SQLCRUDAdapter(queryExecutorFunction) {
-    function getObjects(tableName, filter, callback) {
+function SqlCrudAdapter (queryExecutorFunction) {
+    function getObjects (tableName, filter, callback) {
       filter = filter || [];
       let where = "";
-      if(filter.length > 0) {
+      if (filter.length > 0) {
         where += " WHERE " + filter.map(fi => "" + fi.name + fi.op + fi.value).join(" AND ");
       }
   
@@ -15,7 +15,7 @@ function SQLCRUDAdapter(queryExecutorFunction) {
       });
     }
   
-    function deleteObject(tableName, idValue, callback) {
+    function deleteObject (tableName, idValue, callback) {
       const command = "DELETE FROM " + tableName + " WHERE id='" + idValue + "'";
       queryExecutorFunction(command, (error, results) => {
         if (error) {
@@ -25,12 +25,12 @@ function SQLCRUDAdapter(queryExecutorFunction) {
       });
     }
   
-    function createObject(tableName, object, callback) {
+    function createObject (tableName, object, callback) {
       const valueNames = [];
       const valueIndexes = [];
       const values = [];
       Object.keys(object).forEach((key, index) => {
-        if(object[key] !== undefined) {
+        if (object[key] !== undefined) {
           valueNames.push(key);
           valueIndexes.push("$" + (index + 1));
           values.push(object[key]);
@@ -41,22 +41,21 @@ function SQLCRUDAdapter(queryExecutorFunction) {
         if (error) {
           throw error;
         }
-        // console.log(JSON.stringify(results));
         callback(results.rows[0].id);
       });
     }
   
-    function updateObject(tableName, object, callback) {
+    function updateObject (tableName, object, callback) {
       const valueNames = [];
       const values = [];
       Object.keys(object).forEach((key, index) => {
-        if(object[key] !== undefined) {
+        if (object[key] !== undefined) {
           valueNames.push(key + " = $" + (index + 1));
           values.push(object[key]);
         }
       });
       const command = "UPDATE " + tableName + " SET " + valueNames.join(", ") + " WHERE id = '" + object.id  + "'";
-      queryExecutorFunction(command, values, (error, results) => {
+      queryExecutorFunction(command, values, (error) => {
         if (error) {
           throw error;
         }
@@ -72,4 +71,4 @@ function SQLCRUDAdapter(queryExecutorFunction) {
     }
 }
 
-module.exports = SQLCRUDAdapter;
+module.exports = SqlCrudAdapter;
