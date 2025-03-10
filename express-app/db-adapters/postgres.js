@@ -1,5 +1,5 @@
 const fs = require("fs");
-const SQLCRUDAdapter = require("./sql-crud-adapter");
+const SqlCrudAdapter = require("./sql-crud-adapter");
 const SurveyStorage = require("./survey-storage");
 
 const readFileSync = filename => fs.readFileSync(filename).toString("utf8");
@@ -17,7 +17,7 @@ const dbConfig = {
 const Pool = require('pg').Pool
 const pool = new Pool(dbConfig);
 
-function PostgresStorage(session) {
+function PostgresStorage () {
   function queryExecutorFunction() {
     if(!!process.env.DATABASE_LOG) {
       console.log(arguments[0]);
@@ -25,7 +25,7 @@ function PostgresStorage(session) {
     }
     return pool.query.apply(pool, arguments);
   }
-  const dbQueryAdapter = new SQLCRUDAdapter(queryExecutorFunction);
+  const dbQueryAdapter = new SqlCrudAdapter(queryExecutorFunction);
   return new SurveyStorage(dbQueryAdapter);
 }
 
