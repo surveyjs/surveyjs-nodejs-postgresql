@@ -2,7 +2,7 @@
 
 This demo shows how to integrate [SurveyJS](https://surveyjs.io/) components with a NodeJS backend using a PostgreSQL database as a storage.
 
-[View Demo Online](https://surveyjs-nodejs.azurewebsites.net/)
+[View Demo Online](https://surveyjs-nodejs-postgresql.demos.surveyjs.io/)
 
 ## Disclaimer
 
